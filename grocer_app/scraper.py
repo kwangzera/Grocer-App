@@ -12,7 +12,7 @@ def scrape(num, url, csv):
             for _, (title, link) in zip(range(num), reader(f))
         }
 
-    for title, link in zip(food_items.items():
+    for title, link in food_items.items():
 
         # Generating item info
         key = getrandbits(63)
