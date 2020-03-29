@@ -48,7 +48,7 @@ def scrape(num, url, csv):
 
         info = dict(id=id, title=title, rating=rating, price=price, storeId=storeId, imageUrl=imageUrl)
         r = requests.post(url, json=info)
-        
-        raise ValueError(r.text)
+        if "error" in r.json:
+            raise ValueError(r.json["error"])
 
 

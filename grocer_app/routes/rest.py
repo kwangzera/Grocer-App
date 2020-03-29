@@ -34,7 +34,7 @@ def items_query():
             for item in query_search(StoreItem, request.args)
         ]
     else:
-        query_add(db.session, *from_dict(StoreItem, request.json))
+        query_add(db.session, from_dict(StoreItem, request.json))
 
 @rest.route("/lists", methods=["GET", "POST"])
 @obj_always

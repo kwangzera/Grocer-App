@@ -22,9 +22,8 @@ def startup():
             "grocer_app/food.csv",
         )
     except Exception as e:
-        return f"""
-        <h3> Fatal Error </h3>
-        <pre> {escape(format_exc())} </pre>
-        """
+        if isinstance(e.args[0], dict):
+            return e.args[0]
+        return {"message": repr(e), "messageFull": format_exc().splitlines()}
     else:
         return redirect(url_for('static', filename='startup.html'))
