@@ -2,7 +2,7 @@
 # Here lie all the @app.route s
 
 from functools import wraps
-from flask import redirect, request
+from flask import redirect, request, url_to
 
 from . import app, db
 from .models import *
@@ -77,6 +77,15 @@ def items_id(id):
 def lists_id(id):
     obj = query_id(CustomerList, id)
     return {**to_dict(CustomerList, obj), "items": to_json(CustomerItem, *obj.items)}
+
+# GET: /<type>/all
+@rest_route("/items/all")
+def items_all():
+    return redirect(url_to("items", first=StoreItem.query.count()))
+
+@rest_route("/lists/all")
+def lists_all():
+    return redirect(url_to("lists", first=CustomerList.query.count()))
 
 # GET: /eval?expr=<string>
 @rest_route("/eval")
