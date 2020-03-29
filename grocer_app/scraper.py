@@ -46,7 +46,7 @@ def scrape(num, url, csv):
             
         title = title
 
-        info = {i: eval(i) for i in "id title rating price storeId imageUrl".split()}
+        info = dict(id=id, title=title, rating=rating, price=price, storeId=storeId, imageUrl=imageUrl)
         requests.post(url, json=info)
 
 

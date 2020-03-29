@@ -1,6 +1,6 @@
 from traceback import format_exc
 
-from flask import Blueprint, redirect, request, url_for
+from flask import Blueprint, redirect, request, url_for, escape
 
 from ..extensions import db
 from ..scraper import scrape
@@ -22,9 +22,9 @@ def startup():
             "grocer_app/food.csv",
         )
     except Exception as e:
-        return """
+        return f"""
         <h3> Fatal Error </h3>
-        <pre> {} </pre>
-        """.format(format_exc().replace('\n', '<br/>'))
+        <pre> {escape(format_exc())} </pre>
+        """
     else:
         return redirect(url_for('static', filename='startup.html'))
