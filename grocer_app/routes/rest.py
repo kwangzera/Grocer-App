@@ -13,7 +13,6 @@ def data(data):
     return {"data": data}
 
 # Decorator to automatically change errors into error objects.
-@wraps(rest.route)
 def obj_always(func):
     @wraps(func)
     def _wrapper(*args, **kwargs):

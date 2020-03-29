@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, request, url_for
 
-from .extensions import db
+from ..extensions import db
 user = Blueprint("user", __name__)
 
 @user.route("/")
