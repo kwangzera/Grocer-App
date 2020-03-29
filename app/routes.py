@@ -12,23 +12,26 @@ def data(data):
 
 # Decorator to automatically change errors into error objects.
 @wraps(app.route)
-def rest_route(*args, **kwargs):
+def rest_route(*args, ret=True, **kwargs):
     def _outer_route(func):
         @app.route(*args, **kwargs)
         @wraps(func)
         def _inner_route(*args, **kwargs):
             try:
-                return data(func(*args, **kwargs))
+                if ret:
+                    return data(func(*args, **kwargs))
+                else:
+                    return func(*args, **kwargs)
             except Exception as e:
                 return error(e)
         return _inner_route
     return _outer_route
 
 
-@app.route("/")
+@rest_route("/", ret=False)
 def index():
     # should give error lol
-    return url_for('static', filename='index.html')
+    return redirect(url_for('static', filename='index.html'))
 
 
 @rest_route("/items", methods=["GET", "POST"])
@@ -71,11 +74,11 @@ def lists_id(id):
     return {**to_dict(CustomerList, obj), "items": to_json(CustomerItem, *obj.items)}
 
 
-@app.route("/items/all")
+@rest_route("/items/all", ret=False)
 def items_all():
     return redirect(url_for("items", first=StoreItem.query.count()))
 
-@app.route("/lists/all")
+@rest_route("/lists/all", ret=False)
 def lists_all():
     return redirect(url_for("lists", first=CustomerList.query.count()))
 
