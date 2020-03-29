@@ -1,6 +1,3 @@
-# routes.py
-# Here lie all the @app.route s
-
 from functools import wraps
 from flask import redirect, request, url_for
 

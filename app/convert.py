@@ -1,6 +1,3 @@
-# convert.py
-# Conversion land
-
 from random import getrandbits
 
 def from_obj(obj, fields):

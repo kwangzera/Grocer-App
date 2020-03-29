@@ -1,14 +1,7 @@
-# models.py
-# All the "objects" in the database
-
-# you better have a hella good reason to change this again
-
 from functools import partial
 from . import db
 from .convert import *
 
-# makes everything 10 times easier
-# (enables stuff to be factored out)
 def keep(cls=None, *, fields=()):
     if isinstance(fields, str):
         fields = fields.split()

@@ -1,6 +1,3 @@
-# queries.py
-# Queries to hide away the complexity
-
 from .convert import *
 
 def query_filter(cls, kwargs):
