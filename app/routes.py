@@ -28,15 +28,9 @@ def rest_route(*args, **kwargs):
 @app.route("/")
 def index():
     # should give error lol
-    return open("/../static/index.html")
-    """
-    Hello! This is the GrocerApp's server.
-    Check out <a href="/items">store items</a> or <a href="/lists">grocery lists</a>.
-    """
+    return url_for('static', filename='index.html')
 
-# GET /<type>?skip=<int>&first=<int>&<arguments>
-# note: see query.py/query_search for more info
-# POST: /<type>/create
+
 @rest_route("/items", methods=["GET", "POST"])
 def items():
     if request.method == "GET":
@@ -66,7 +60,7 @@ def lists():
             query_add(db.session, item)
             list.items.append(item)
 
-# GET: /<type>/<int:id>
+
 @rest_route("/items/<int:id>")
 def items_id(id):
     return to_dict(StoreItem, query_id(StoreItem, id))
@@ -76,7 +70,7 @@ def lists_id(id):
     obj = query_id(CustomerList, id)
     return {**to_dict(CustomerList, obj), "items": to_json(CustomerItem, *obj.items)}
 
-# GET: /<type>/all
+
 @app.route("/items/all")
 def items_all():
     return redirect(url_for("items", first=StoreItem.query.count()))
@@ -85,7 +79,7 @@ def items_all():
 def lists_all():
     return redirect(url_for("lists", first=CustomerList.query.count()))
 
-# GET: /eval?expr=<string>
+
 @rest_route("/eval")
 def expr():
     expr = request.args.get("expr", "None")
