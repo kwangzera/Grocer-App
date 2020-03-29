@@ -1,1 +1,1 @@
-web: gunicorn swgi:app
+web: gunicorn app:app
