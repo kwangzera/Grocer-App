@@ -1,5 +1,8 @@
 from flask import Blueprint, redirect, request, url_for
 
+from ..extensions import db
+from ..scraper import scrape
+
 user = Blueprint("user", __name__)
 
 @user.route("/")
@@ -10,11 +13,9 @@ NUM_DEFAULT = 25
 @user.route("/startup")
 def startup():
     try:
-        from ..extensions import db
-        from ..scraper import scrape
         db.create_all()
         scrape(
-            request.args.get(num, NUM_DEFAULT),
+            request.args.get("num", NUM_DEFAULT),
             "https://grocer-app-flask.herokuapp.com/items",
             "food.csv",
         )
