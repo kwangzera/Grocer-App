@@ -65,15 +65,6 @@ def lists_id(id):
     return {**to_dict(CustomerList, obj), "items": to_json(CustomerItem, *obj.items)}
 
 
-@rest.route("/items/all")
-def items_all():
-    return redirect(url_for("items_query", first=StoreItem.query.count()))
-
-@rest.route("/lists/all")
-def lists_all():
-    return redirect(url_for("lists_query", first=CustomerList.query.count()))
-
-
 @rest.route("/eval")
 @obj_always
 def expr():

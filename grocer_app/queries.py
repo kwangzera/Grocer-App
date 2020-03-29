@@ -24,6 +24,8 @@ def query_search(cls, kwargs):
     kwargs = dict(kwargs)
     skip = kwargs.pop("skip", SKIP_DEFAULT)
     first = kwargs.pop("first", FIRST_DEFAULT)
+    if first == "all":
+        first = cls.query.count()
     query = query_filter(cls, kwargs)
     return query_slice(query, int(skip), int(first))
 
