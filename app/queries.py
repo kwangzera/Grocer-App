@@ -28,7 +28,7 @@ def query_search(cls, kwargs):
     skip = kwargs.pop("skip", SKIP_DEFAULT)
     first = kwargs.pop("first", FIRST_DEFAULT)
     query = query_filter(cls, kwargs)
-    return query_slice(query, skip, first)
+    return query_slice(query, int(skip), int(first))
 
 def query_id(cls, id):
     """Return an obj of `cls` and with `id`."""

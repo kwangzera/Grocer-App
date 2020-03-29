@@ -14,8 +14,7 @@ def data(data):
     return {"data": data}
 
 # Decorator to automatically change errors into error objects.
-# (and to automatically commit)
-@wraps(app.route)   # error with @wrap [FIXED]
+@wraps(app.route)
 def rest_route(*args, **kwargs):
     def _outer_route(func):
         @app.route(*args, **kwargs)
@@ -25,9 +24,6 @@ def rest_route(*args, **kwargs):
                 return data(func(*args, **kwargs))
             except Exception as e:
                 return error(e)
-            else:
-                pass
-                # db.session.commit()    # error with db lol ignore this one
         return _inner_route
     return _outer_route
 
@@ -35,7 +31,10 @@ def rest_route(*args, **kwargs):
 @app.route("/")
 def index():
     # should give error lol
-    return "lol you aint a computer..."
+    return """
+    Hello! This is the GrocerApp's server.
+    Check out <a href="/items">store items</a> or <a href="/lists">grocery lists</a>.
+    """
 
 # GET /<type>?skip=<int>&first=<int>&<arguments>
 # note: see query.py/query_search for more info
@@ -49,7 +48,10 @@ def items():
         ]
     else:
         print(f"Adding {request.json}")
-        query_add(db.session, *from_json(StoreItem, request.json))
+        try:
+            query_add(db.session, *from_json(StoreItem, request.json))
+        except:
+            query_add(db.session, *from_dict(StoreItem, request.json))
 
 @rest_route("/lists", methods=["GET", "POST"])
 def lists():
@@ -62,7 +64,9 @@ def lists():
         json = request.json
         list = from_dict(CustomerList, json)
         query_add(db.session, list)
-        query_add(db.session, *from_json(CustomerItem, json["items"]))
+        for item in from_json(CustomerItem, json["items"]):
+            query_add(db.session, item)
+            list.items.append(item)
 
 # GET: /<type>/<int:id>
 @rest_route("/items/<int:id>")

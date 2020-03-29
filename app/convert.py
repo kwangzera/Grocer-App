@@ -8,8 +8,11 @@ def from_obj(obj, fields):
 def to_obj(dict, fields):
     return {field: dict[field] for field in fields}
 
-def from_dict(cls, dict, *, new_id=True):
-    id = (getrandbits(63) if new_id else dict["id"])
+def from_dict(cls, dict, *, force_new=False):
+    if force_new:
+        id = getrandbits(63)
+    else:
+        id = dict.get("id", getrandbits(63))
     return cls(id=id, **to_obj(dict, cls.fields))
 def to_dict(cls, obj):
     return {"id": obj.id, **from_obj(obj, cls.fields)}
