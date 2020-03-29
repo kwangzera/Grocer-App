@@ -28,7 +28,8 @@ def rest_route(*args, **kwargs):
 @app.route("/")
 def index():
     # should give error lol
-    return """
+    return open("/../static/index.html")
+    """
     Hello! This is the GrocerApp's server.
     Check out <a href="/items">store items</a> or <a href="/lists">grocery lists</a>.
     """
