@@ -10,10 +10,12 @@ def create_app():
     app.config.from_object(Config)
     
     db.init_app(app)
-    db.create_all()
 
     app.register_blueprint(rest.rest)
     app.register_blueprint(user.user)
+
+    with app.app_context():
+        db.create_all()
 
     return app
 
