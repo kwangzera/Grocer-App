@@ -14,7 +14,7 @@ def scrape(num, url, csv):
 
     for title, link in food_items.items():
     
-        r = requests.get(url, title=title)
+        r = requests.get(url, params={"title": title})
         if "error" in r.json():
             raise ValueError(r.json()["error"])
         json = r.json()
