@@ -81,11 +81,11 @@ def lists_id(id):
 # GET: /<type>/all
 @app.route("/items/all")
 def items_all():
-    return redirect(url_to("items", first=StoreItem.query.count()))
+    return redirect(url_to("items", first=len(StoreItem.query.all())))
 
 @app.route("/lists/all")
 def lists_all():
-    return redirect(url_to("lists", first=CustomerList.query.count()))
+    return redirect(url_to("lists", first=len(CustomerList.query.all())))
 
 # GET: /eval?expr=<string>
 @rest_route("/eval")
