@@ -2,7 +2,7 @@
 # Here lie all the @app.route s
 
 from functools import wraps
-from flask import redirect, request, url_to
+from flask import redirect, request, url_from
 
 from . import app, db
 from .models import *
@@ -81,11 +81,11 @@ def lists_id(id):
 # GET: /<type>/all
 @app.route("/items/all")
 def items_all():
-    return redirect(url_to("items", first=len(StoreItem.query.all())))
+    return redirect(url_from("items", first=StoreItem.query.count()))
 
 @app.route("/lists/all")
 def lists_all():
-    return redirect(url_to("lists", first=len(CustomerList.query.all())))
+    return redirect(url_from("lists", first=CustomerList.query.count()))
 
 # GET: /eval?expr=<string>
 @rest_route("/eval")
