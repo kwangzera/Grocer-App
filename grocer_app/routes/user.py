@@ -22,6 +22,9 @@ def startup():
             "food.csv",
         )
     except Exception as e:
-        return f"Fatal Error: {format_exc().replace('\n', '<br/>'}"
+        return """
+        <h3> Fatal Error <h3>
+        <p> {} </p>
+        """.format(format_exc().replace('\n', '<br/>'))
     else:
         return redirect(url_for('static', filename='startup.html'))
