@@ -16,8 +16,12 @@ NUM_DEFAULT = 25
 def startup():
     try:
         db.create_all()
+        num = request.args.get("num", NUM_DEFAULT)
+        if num == "all":
+            with open("grocer_app/food.csv") as f:
+                num = len(f)
         scrape(
-            request.args.get("num", NUM_DEFAULT),
+            int(num),
             "https://grocer-app-flask.herokuapp.com/items",
             "grocer_app/food.csv",
         )
