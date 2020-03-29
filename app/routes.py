@@ -79,11 +79,11 @@ def lists_id(id):
     return {**to_dict(CustomerList, obj), "items": to_json(CustomerItem, *obj.items)}
 
 # GET: /<type>/all
-@rest_route("/items/all")
+@app.route("/items/all")
 def items_all():
     return redirect(url_to("items", first=StoreItem.query.count()))
 
-@rest_route("/lists/all")
+@app.route("/lists/all")
 def lists_all():
     return redirect(url_to("lists", first=CustomerList.query.count()))
 
