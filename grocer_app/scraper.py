@@ -15,7 +15,7 @@ def scrape(num, url, csv):
     for title, link in food_items.items():
 
         # Generating item info
-        key = getrandbits(63)
+        id = getrandbits(63)
         storeId = randint(1, 3)
         soup = BeautifulSoup(urlopen(link), "html.parser")
 
@@ -44,7 +44,7 @@ def scrape(num, url, csv):
         else:
             imageUrl = ""
 
-        info = {key: {i: eval(i) for i in "title rating price storeId imageUrl".split()}}
+        info = {i: eval(i) for i in "id title rating price storeId imageUrl".split()}
         requests.post(url, json=info)
 
         continue_amount -= 1
