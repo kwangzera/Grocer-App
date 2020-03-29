@@ -7,9 +7,9 @@ def query_filter(cls, kwargs):
         if key == "search":  # Special case "search"
             key = "titleHas"
         if key.endswith("Has"):
-            filt = (getattr(cls, key[:-3]).index(value) != -1)
+            filt = getattr(cls, key[:-3]).ilike(f"%{value}%")
         else:
-            filt = (getattr(cls, key) == value)
+            filt = getattr(cls, key).ilike(value)
         query = query.filter(filt)
     return query
 
