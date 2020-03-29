@@ -19,12 +19,12 @@ def startup():
         scrape(
             request.args.get("num", NUM_DEFAULT),
             "https://grocer-app-flask.herokuapp.com/items",
-            "food.csv",
+            "grocer_app/food.csv",
         )
     except Exception as e:
         return """
-        <h3> Fatal Error <h3>
-        <p> {} </p>
+        <h3> Fatal Error </h3>
+        <pre> {} </pre>
         """.format(format_exc().replace('\n', '<br/>'))
     else:
         return redirect(url_for('static', filename='startup.html'))
