@@ -1,5 +1,5 @@
 from functools import partial
-from . import db
+from .extensions import db
 from .convert import *
 
 def keep(cls=None, *, fields=()):
