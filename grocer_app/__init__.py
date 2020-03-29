@@ -1,7 +1,7 @@
 from flask import Flask
-from config import Config
 
 from . import convert, models, queries
+from .config import Config
 from .extensions import db
 from .routes import rest, user
 
