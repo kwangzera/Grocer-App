@@ -43,9 +43,10 @@ def scrape(num, url, csv):
                 break
         else:
             imageUrl = ""
+            
+        title = title
 
         info = {i: eval(i) for i in "id title rating price storeId imageUrl".split()}
         requests.post(url, json=info)
 
-        continue_amount -= 1
 

@@ -10,7 +10,7 @@ from ..queries import *
 rest = Blueprint("rest", __name__)
 
 def error(exc):
-    return {"error": {"message": repr(exc), "full": [format_exc().splitlines()]}}
+    return {"error": {"message": repr(exc), "messageFull": [format_exc().splitlines()]}}
 def data(data):
     return {"data": data}
 
