@@ -1,3 +1,5 @@
+beautifulsoup4
 flask
 flask-sqlalchemy
 gunicorn
+requests

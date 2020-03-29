@@ -18,8 +18,6 @@ class CustomerList(db.Model):
     contact = db.Column(db.String(64), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
     items = db.relationship('CustomerItem', backref='list', lazy='dynamic')
-    def __repr__(self):
-        return f'<CustomerList vars={vars(self)!r}>'
 
 @keep(fields="title rating price count storeId imageUrl")
 class CustomerItem(db.Model):
@@ -31,8 +29,6 @@ class CustomerItem(db.Model):
     storeId = db.Column(db.Integer, nullable=False)
     imageUrl = db.Column(db.String(256), nullable=False)
     list_id = db.Column(db.Integer, db.ForeignKey(CustomerList.id))
-    def __repr__(self):
-        return f'<CustomerItem vars={vars(self)!r}>'
 
 @keep(fields="title rating price storeId imageUrl")
 class StoreItem(db.Model):
@@ -42,5 +38,3 @@ class StoreItem(db.Model):
     price = db.Column(db.Float, nullable=False)
     storeId = db.Column(db.Integer, nullable=False)
     imageUrl = db.Column(db.String(256), nullable=False)
-    def __repr__(self):
-        return f'<StoreItem vars={vars(self)!r}>'
