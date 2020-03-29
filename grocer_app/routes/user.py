@@ -1,3 +1,5 @@
+from traceback import format_exc
+
 from flask import Blueprint, redirect, request, url_for
 
 from ..extensions import db
@@ -20,6 +22,6 @@ def startup():
             "food.csv",
         )
     except Exception as e:
-        return f"Fatal Error: {repr(e)}"
+        return f"Fatal Error: {format_exc()}"
     else:
         return redirect(url_for('static', filename='startup.html'))

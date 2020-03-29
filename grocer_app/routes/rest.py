@@ -1,4 +1,6 @@
 from functools import wraps
+from traceback import format_exc
+
 from flask import Blueprint, redirect, request, url_for
 
 from ..extensions import db
@@ -7,8 +9,8 @@ from ..queries import *
 
 rest = Blueprint("rest", __name__)
 
-def error(message):
-    return {"error": {"message": repr(message)}}
+def error(exc):
+    return {"error": {"message": repr(exc), "full": format_exc()}}
 def data(data):
     return {"data": data}
 
